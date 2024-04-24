@@ -1,17 +1,49 @@
 import './UserPage.css';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { userInfo } from '../redux/slice/user.slice';
+import Account  from '../components/Accounts/Account';
+
+const data = [
+    {
+        title: 'Argent Bank Checking (x8349)',
+        accountNumber: 'x8349',
+        amount: '$2,082.79',
+        amountDescription: 'Available Balance',
+        buttonLabel: 'View transactions',
+    },
+        {
+        title: 'Argent Bank Checking (x8349)',
+        accountNumber: 'x8349',
+        amount: '$10,928.42',
+        amountDescription: 'Available Balance',
+        buttonLabel: 'View transactions',
+    },
+        {
+        title: 'Argent Bank Checking (x8349)',
+        accountNumber: 'x8349',
+        amount: '$184.30',
+        amountDescription: 'Available Balance',
+        buttonLabel: 'View transactions',
+    }
+]
 
 const UserPage = () => {
-
+  const dispatch = useDispatch()
   const token = useSelector(store => store.auth.token)
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
-  const getUserInfo = async() => {
+  useEffect(() => { 
+    if (!token) {
+    return navigate("/login");
+   }
+     const getUserInfo = async() => {
     const response = await fetch('http://localhost:3001/api/v1/user/profile', {
       method: 'POST',
       headers: {
@@ -19,51 +51,28 @@ const UserPage = () => {
       },
     })
     const user = await response.json()
+    dispatch(userInfo(user.body))
     console.log(user)
   }
-
-  useEffect(() => {
     getUserInfo()
-  }, [])
+  }, [token, navigate, dispatch])
+
+
+
+
   return (
     <>
-   <Navbar/>
+   <Header/>
    <main className="main bg-dark">
         <div className="header">
           <h1>Welcome back<br />Tony Jarvis!</h1>
-          <button className="edit-button">Edit Name</button>
+          <Link className="edit-button" to="/edit-username">Edit username</Link>
+          
         </div>
         <h2 className="sr-only">Accounts</h2>
-        <section className="account">
-          <div className="account-content-wrapper">
-            <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-            <p className="account-amount">$2,082.79</p>
-            <p className="account-amount-description">Available Balance</p>
-          </div>
-          <div className="account-content-wrapper cta">
-            <button className="transaction-button">View transactions</button>
-          </div>
-        </section>
-        <section className="account">
-          <div className="account-content-wrapper">
-            <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-            <p className="account-amount">$10,928.42</p>
-            <p className="account-amount-description">Available Balance</p>
-          </div>
-          <div className="account-content-wrapper cta">
-            <button className="transaction-button">View transactions</button>
-          </div>
-        </section>
-        <section className="account">
-          <div className="account-content-wrapper">
-            <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-            <p className="account-amount">$184.30</p>
-            <p className="account-amount-description">Current Balance</p>
-          </div>
-          <div className="account-content-wrapper cta">
-            <button className="transaction-button">View transactions</button>
-          </div>
-        </section>
+        {data.map((account, index) => (
+          <Account key={index} account={account} />
+        ))}
       </main>
    <Footer/>
     

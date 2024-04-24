@@ -1,5 +1,5 @@
 
-import { NavLink,} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css'
 import { useSelector } from 'react-redux';
 
@@ -16,8 +16,8 @@ function Navbar() {
           alt="Argent Bank Logo"
         />
         </NavLink>
-        {token && <p>connecté</p>}
-        {!token && <p>non connecté</p>}
+        {/* {token && <p>connecté</p>}
+        {!token && <p>non connecté</p>} */}
         <h1 className="sr-only">Argent Bank</h1>
       <div>
       <NavLink to="/user" className="main-nav-item" >
