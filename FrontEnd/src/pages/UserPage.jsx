@@ -37,6 +37,9 @@ const UserPage = () => {
   const dispatch = useDispatch()
   const token = useSelector(store => store.auth.token)
 
+  const user = useSelector(store => store.user)
+
+
   const navigate = useNavigate()
 
   useEffect(() => { 
@@ -65,8 +68,8 @@ const UserPage = () => {
    <Header/>
    <main className="main bg-dark">
         <div className="header">
-          <h1>Welcome back<br />Tony Jarvis!</h1>
-          <Link className="edit-button" to="/edit-username">Edit username</Link>
+          <h1>Welcome back<br /> {user.firstName} {user.userName}!</h1>
+          <Link className="edit-button" to="/edit-username">Edit Name</Link>
           
         </div>
         <h2 className="sr-only">Accounts</h2>

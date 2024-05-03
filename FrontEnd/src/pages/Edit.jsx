@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './Edit.css';
 import Footer from '../components/Footer';
-import Header from '../components/Header';
+import EditHeader from '../components/EditHeader';
 import Account from '../components/Accounts/Account';
 
 
@@ -61,11 +61,12 @@ export default function Edit() {
                     userName: newUsername,
                 }),
             });
-            console.log(response)
+           
         if (response.ok) {
+            return navigate("/user")
             
 
-            console.log("User info updated successfully");
+            
         } else {
             throw new Error("Error updating user info");
         }
@@ -82,7 +83,7 @@ const handleCancelClick = () => {
     return (
         <>
         <div>
-        <Header/>
+        <EditHeader/>
         </div>
         <main>
             

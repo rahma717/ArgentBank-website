@@ -39,12 +39,14 @@ const Login = () => {
   }
   console.log(user)
   return (
-    <div>
+    <>
       <Navbar />
       <main className="main bg-dark">
         <section className="sign-in-content">
+        <div className="flex-container">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="input-wrapper">
               <label htmlFor="username">Username</label>
@@ -63,7 +65,7 @@ const Login = () => {
         </section>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }
 

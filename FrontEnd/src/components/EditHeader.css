@@ -1,0 +1,14 @@
+.main-nav-right {
+    display: flex;
+    align-items: center;
+}
+.main-nav-right a {
+ color: #00bc77;
+ font-size: 2rem;
+ margin-right: 27px;
+}
+.main-nav-right a:hover {
+    color: #00bc77;
+    cursor: pointer; 
+    text-decoration: none; 
+}

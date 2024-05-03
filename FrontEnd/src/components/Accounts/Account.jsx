@@ -10,7 +10,7 @@ function Account({ account, darkMode = false }) {
                 <p className="account-amount-description">{amountDescription}</p>
             </div>
             <div className="account-content-wrapper cta">
-                {darkMode ? <p>Fleche</p> : <button className="transaction-button">{buttonLabel}</button>}
+                {darkMode ? <img src="/images/arrow_right.png" alt="" className="fleche-droite" /> : <button className="transaction-button">{buttonLabel}</button>}
             </div>
         </section>
     );
