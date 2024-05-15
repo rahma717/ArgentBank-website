@@ -12,9 +12,14 @@ const userSlice = createSlice({
             state.userName = action.payload.userName,
             state.firstName = action.payload.firstName,
             state.lastName = action.payload.lastName
+        },
+        removeUser: (state) => {
+            state.userName = '',
+            state.firstName = '',
+            state.lastName = ''
         }
     }
 })
 
-export const { userInfo } = userSlice.actions;
+export const { userInfo, removeUser } = userSlice.actions;
 export default userSlice.reducer

@@ -10,12 +10,14 @@ import { createSlice } from '@reduxjs/toolkit';
     reducers: {
       login: (state, action) => {
         state.token = action.payload
-        state.isLoggedIn = true
-      } 
+      },
+      logout: (state) => {
+        state.token = null
+      }
       },
     },
 
   );
 
-export const { login } = authSlice.actions; 
+export const { login, logout } = authSlice.actions; 
 export default authSlice.reducer;

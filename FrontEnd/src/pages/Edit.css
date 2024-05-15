@@ -4,9 +4,18 @@ main {
     align-items: center;
 }
 
+.error {
+    color: red;
+    position: absolute;
+    top: -50px;
+    left: 0;
+}
+
 form {
     display: flex;
     flex-direction: column;
+    position: relative;
+    padding-top: 15px;
 
 }
 .input-group {

@@ -4,8 +4,9 @@ import '../featuresSection/FeaturesContainer.css';
 const FeaturesContainer = () => {
   return (
     <section className="features">
+      <h2 className="sr-only">Features</h2>
       <FeaturesItem
-        imgSrc={"./images/icon-chat.jpg"}
+        imgSrc={"./images/icon-chat.webp"}
         imgAlt={"chat Icon"}
         titleText={"You are our #1 priority"}
         mainText={
@@ -13,7 +14,7 @@ const FeaturesContainer = () => {
         }
       />
       <FeaturesItem
-        imgSrc={"./images/icon-money.jpg"}
+        imgSrc={"./images/icon-money.webp"}
         imgAlt={"Money Icon"}
         titleText={"More savings means higher rates"}
         mainText={
@@ -21,7 +22,7 @@ const FeaturesContainer = () => {
         }
       />
       <FeaturesItem
-        imgSrc={"./images/icon-security.jpg"}
+        imgSrc={"./images/icon-security.webp"}
         imgAlt={"security Icon"}
         titleText={"Security you can trust"}
         mainText={
