@@ -64,7 +64,6 @@ export default function Edit() {
     setErrors("Username must be at least 2 characters long, and containes only letters and numbers.");
     return false
   };
-
 // Fonction pour soumettre les modifications du nom d'utilisateur
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -89,8 +88,6 @@ export default function Edit() {
         if (response.ok) {
             return navigate("/user");
             
-
-            
         } else {
             throw new Error("Error updating user info");
         }
@@ -102,7 +99,6 @@ export default function Edit() {
 const handleCancelClick = () => {
     setNewUsername("");
 };
-
 // Rendu du composant Edit
     return (
         <>
@@ -110,7 +106,6 @@ const handleCancelClick = () => {
         <EditHeader/>
         </div>
         <main>
-            
             <h2>Edit user info </h2>
             {/* Formulaire pour l'édition des informations utilisateur */}
             <form onSubmit={handleSubmit} className="edit-form">
@@ -142,7 +137,6 @@ const handleCancelClick = () => {
                 {data.map((account, index) => (
           <Account key={index} account={account} darkMode={true} />
         ))}
-           
         </main>
         <Footer/>
 
