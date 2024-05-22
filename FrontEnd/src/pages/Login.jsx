@@ -17,11 +17,13 @@ const Login = () => {
 
   // Obtention de la fonction dispatch pour l'envoi d'actions à Redux
   const dispatch = useDispatch()
-  // Obtention de la fonction dispatch pour l'envoi d'actions à Redux
+  // Obtention de la fonction navigate pour la navigation
   const navigate = useNavigate()
   // Fonction pour gérer la soumission du formulaire de connexion
   const handleSubmit = async (e) => {
+    // Empêche le comportement par défaut du formulaire (rechargement de la page)
     e.preventDefault();
+    // Réinitialise l'état d'erreur avant de soumettre
     setError('');
 
   // Envoi de la requête de connexion avec les données utilisateur au serveur
@@ -30,6 +32,7 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json',
       },
+    // Convertit l'objet user en chaîne JSON pour l'envoyer dans le corps de la requête
       body: JSON.stringify(user)
     })
   // Récupération des données de la réponse sous forme de JSON
@@ -41,13 +44,17 @@ const Login = () => {
   // Redirection vers la page utilisateur après la connexion réussie
       navigate('/user');
     } else {
+  // Mise à jour de l'état d'erreur avec un message d'erreur approprié
       setError('invalid email or password');
     }
   };
 // Fonction pour mettre à jour l'état local 'user' lors de la modification des champs du formulaire
   const handleChange = (e) => {
+    // Met à jour l'état user en copiant les valeurs existantes et en remplaçant la valeur du champ modifié
+
     setUser({...user, [e.target.name]: e.target.value})
   }
+    // Affiche l'état user dans la console pour le débogage
   console.log(user)
   return (
     <>

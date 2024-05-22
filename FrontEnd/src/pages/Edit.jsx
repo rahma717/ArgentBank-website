@@ -1,5 +1,5 @@
 import  { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';// Importation du hook useSelector de React-Redux pour accéder à l'état Redux
 import { useNavigate } from 'react-router-dom';// Importation du hook useNavigate pour la navigation
 import './Edit.css';
 import Footer from '../components/Footer';
@@ -35,8 +35,9 @@ const data = [
   
 // Composant principal pour l'édition des informations utilisateur
 export default function Edit() {
- // Utilisation de useSelector pour récupérer les données de l'état Redux
+  // Utilisation de useSelector pour récupérer le token d'authentification de l'état Redux
     const token = useSelector((state) => state.auth.token);
+// Utilisation de useSelector pour récupérer les informations utilisateur de l'état Redux
     const user = useSelector((state) => state.user);
  // État local pour le nouveau nom d'utilisateur en cours de modification
     const [newUsername, setNewUsername] = useState(user.userName);
@@ -53,10 +54,12 @@ export default function Edit() {
    }
 }, [token, navigate]);
 
-// Fonction de validation 
+// Fonction de validation pour le nouveau nom dutilisateur
   const validate = () => {
+// Expression régulière pour vérifier que le nom d'utilisateur contient uniquement des lettres et des chiffres
       // eslint-disable-next-line no-useless-escape
       const regex = new RegExp('[a-zA-Z\d.-]+')
+     // Vérifie que le nom d'utilisateur est une chaîne de caractères d'au moins 2 caractères et respecte l'expression régulière
     if (typeof newUsername === "string" && newUsername.length >= 2 && regex.test(newUsername)) {
         return true
     }
@@ -66,38 +69,44 @@ export default function Edit() {
   };
 // Fonction pour soumettre les modifications du nom d'utilisateur
     const handleSubmit = async (e) => {
+// Empêche le comportement par défaut du formulaire (rechargement de la page)
         e.preventDefault();
-
+// validation des donées du formulaire
         const validationErrors = validate();
         if (!validationErrors) {
             return;
         }
 
         try {
+            // Envoi de la requête PUT à l'API pour mettre à jour le nom d'utilisateur
             const response = await fetch("http://localhost:3001/api/v1/user/profile", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     'Authorization': 'Bearer ' + token,
                 },
+            // Corps de la requête contenant le nouveau nom d'utilisateur
                 body: JSON.stringify({
                     userName: newUsername,
                 }),
             });
-           
+           // Si la mise à jour est réussie, redirection vers la page utilisateur
         if (response.ok) {
             return navigate("/user");
             
         } else {
+             // Gestion des erreurs de mise à jour
             throw new Error("Error updating user info");
         }
     } catch (error) {
+         // Affichage de l'erreur dans la console
         console.error("Error:", error);
     }
 };
 // Fonction pour annuler les modifications du nom d'utilisateur
 const handleCancelClick = () => {
-    setNewUsername("");
+    // Réinitialisation du nom d'utilisateur à une chaîne vide
+    setNewUsername(user.userName);
 };
 // Rendu du composant Edit
     return (

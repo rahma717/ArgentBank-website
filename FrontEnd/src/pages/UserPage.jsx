@@ -1,6 +1,5 @@
 import './UserPage.css'; // Importation des styles CSS spécifiques à la page UserPage
 import { useNavigate } from 'react-router-dom'; // Importation du hook useNavigate pour la navigation
-import Header from '../components/Header'; // Importation du composant Header
 import Footer from '../components/Footer'; // Importation du composant Footer
 import { useSelector } from 'react-redux'; // Importation du hook useSelector pour accéder à l'état Redux
 import { useEffect } from 'react'; // Importation du hook useEffect pour les effets secondaires
@@ -8,6 +7,7 @@ import { Link } from 'react-router-dom'; // Importation du composant Link pour c
 import { useDispatch } from 'react-redux'; // Importation du hook useDispatch pour envoyer des actions Redux
 import { userInfo } from '../redux/slice/user.slice'; // Importation de l'action userInfo du slice user.slice
 import Account from '../components/Accounts/Account'; // Importation du composant Account
+import Navbar from '../components/Navbar'; // Importation du composant Navbar
 
 // Données d'exemple pour les comptes utilisateur
 const data = [
@@ -43,9 +43,11 @@ const UserPage = () => {
   const navigate = useNavigate()// Initialisation du hook useNavigate pour la navigation
 // Effet pour vérifier si l'utilisateur est connecté et récupérer les informations utilisateur
   useEffect(() => { 
+    // Si le token n'est pas présent, rediriger vers la page de connexion
     if (!token) {
     return navigate("/login");// Redirection vers la page de connexion si l'utilisateur n'est pas authentifié
    }
+   // Fonction pour récupérer les informations utilisateur depuis l'API
      const getUserInfo = async() => {
     const response = await fetch('http://localhost:3001/api/v1/user/profile', {
       method: 'POST',
@@ -53,7 +55,7 @@ const UserPage = () => {
         'Authorization': `Bearer ${token}`,
       },
     })
-    const user = await response.json()// Récupération des informations utilisateur depuis la réponse de l'API
+    const user = await response.json()// conversion de la reponse en format JSON
     dispatch(userInfo(user.body)) // Envoi des informations utilisateur à l'état Redux via l'action userInfo
     console.log(user)// Affichage des informations utilisateur dans la console (à des fins de débogage)
   }
@@ -66,11 +68,11 @@ const UserPage = () => {
     // Rendu de la page utilisateur
   return (
     <>
-   <Header/> {/* Affichage du composant Header */}
+   <Navbar/> {/* Affichage du composant Header */}
    <main className="main bg-dark">
         <div className="header">
           {/* Affichage du titre de bienvenue et du nom d'utilisateur */}
-          <h1>Welcome back<br /> {user.firstName} {user.userName}!</h1>
+          <h1>Welcome back<br /> {user.userName}!</h1>
           {/* Bouton pour éditer le nom d'utilisateur avec un lien vers la page d'édition */}
           <Link className="edit-button" to="/edit-username">Edit Name</Link>
           

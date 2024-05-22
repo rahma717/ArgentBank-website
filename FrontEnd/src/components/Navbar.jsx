@@ -8,6 +8,7 @@ import { removeUser } from '../redux/slice/user.slice';
 function Navbar() {
 
   const token = useSelector(store => store.auth.token)
+  const user = useSelector(store => store.user)
   console.log('navbar', token)
   const dispatch = useDispatch()
 
@@ -34,16 +35,16 @@ function Navbar() {
             Sign In
       </NavLink>
       </div>}
-                  {token && <div>
-                <NavLink className="main-nav-item" href="./user.html">
-                    <i className="fa fa-user-circle"></i>
-                    Tony
-                </NavLink>
-                <NavLink className="main-nav-item" to="/" onClick={handleLogout}>
-                    <i className="fa fa-sign-out" ></i>
-                    Sign Out
-                </NavLink>
-            </div>}
+        {token && <div>
+      <NavLink className="main-nav-item" to="/user">
+          <i className="fa fa-user-circle"></i>
+          {user.userName}
+      </NavLink>
+      <NavLink className="main-nav-item" to="/" onClick={handleLogout}>
+          <i className="fa fa-sign-out" ></i>
+          Sign Out
+      </NavLink>
+      </div>}
     </nav>
   );
 }
