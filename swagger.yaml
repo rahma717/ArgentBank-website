@@ -99,20 +99,16 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /transactions/{accountId}:
+          
+  /transactions:
     get:
       security:
         - Bearer: []
       tags: 
-       - Transaction Module
-      summary: Transactions API
-      description: API for getting transactions
-      parameters:
-        - in: path
-          name: accountId
-          description: ID of the account
-          required: true
-          type: string
+        - Transaction Module
+      summary: Get Current Month Transactions Grouped by Account
+      description: API for getting transactions for the current month, grouped by account
+      
       produces:
         - application/json
       responses:
@@ -261,7 +257,7 @@ definitions:
   TransactionListResponse:
     type: object
     properties:
-      transactions:
+      account-id:
         type: array
         items:
           $ref: '#/definitions/Transaction'
